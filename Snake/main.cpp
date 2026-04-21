@@ -1,6 +1,11 @@
 #include <iostream>
+#include "Snake.h"
+#include "Game.h"
 
 int main()
 {
-	std::cout << "hello world";
+    Game game;
+    game.run();
+
+    return 0;
 }
