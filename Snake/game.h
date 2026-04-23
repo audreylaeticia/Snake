@@ -1,20 +1,24 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include "Snake.h"
 
 class Game
 {
 public:
 	Game();
-	//~Game();
 	void run();
 
 private:
 	sf::RenderWindow window;
-	sf::RectangleShape player;
+	sf::Texture _textureFond;
+	sf::Sprite _spriteFond;
+	sf::RectangleShape _fond;
+	sf::Clock _clock;
+	sf::Font _font;
 	Snake snake;
 
-	//enum Direction { UP, DOWN, LEFT, RIGHT };
-	//Direction dir;
+	
 
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
