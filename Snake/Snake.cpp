@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.h"
+#include "food.h"
 #include <iostream>
 
 using namespace std;
@@ -121,9 +122,8 @@ bool Snake::checkCollisionWithWall(int width, int height)
     if (head.x < 0 || head.x >= width ||
         head.y < 0 || head.y >= height)
     {
-        return true;
+        return true; // collision détectée
     }
 
     return false;
 }
-

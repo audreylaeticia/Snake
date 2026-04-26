@@ -19,6 +19,9 @@ private:
 	sf::Font _font;
 	Snake snake;
 	Food food;
+	sf::Font font;
+	sf::Text textLives;
+	int lives;
 
 	
 

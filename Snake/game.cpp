@@ -5,6 +5,7 @@ using namespace sf;
 
 Game::Game()
 {
+    lives = 3;
     window.create(VideoMode(800, 600), "Snake");
     window.setFramerateLimit(60);
 
@@ -13,6 +14,17 @@ Game::Game()
     {
         std::cout << "Erreur chargement fond\n";
     }
+
+    if (!font.loadFromFile("ressources/arial.ttf"))
+    {
+        std::cout << "Erreur chargement police\n";
+    }
+
+    // config texte
+    textLives.setFont(font);
+    textLives.setCharacterSize(20);
+    textLives.setFillColor(sf::Color::White);
+    textLives.setPosition(10, 10);
 
     _spriteFond.setTexture(_textureFond);
 
@@ -58,6 +70,20 @@ void Game::run()
         if (clock.getElapsedTime().asSeconds() > 0.2f)
         {
             snake.move();
+            if (snake.checkCollisionWithWall(25, 18))
+            {
+                lives--;
+
+                if (lives <= 0)
+                {
+                    window.close(); // game over
+                }
+                else
+                {
+                    snake.initialise(); // reset position
+                    food.spawn(snake.getBody());
+                }
+            }
             clock.restart();
         }
 
@@ -67,6 +93,7 @@ void Game::run()
             food.incrementScore();
             food.spawn(snake.getBody());
         }
+        textLives.setString("Vies: " + std::to_string(lives));
 
         // affichage
         window.clear();
@@ -74,6 +101,7 @@ void Game::run()
         window.draw(_spriteFond);
         food.draw(window);   
         snake.draw(window); 
+        window.draw(textLives);
 
         window.display();
     }
