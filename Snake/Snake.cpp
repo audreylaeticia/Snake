@@ -6,8 +6,6 @@ using namespace std;
 using namespace sf;
 
 
-
-
 Snake::Snake()
 {
     initialise();
@@ -20,12 +18,35 @@ void Snake::setDirection(const sf::Vector2i& newdirection)
 
     _direction = newdirection;
 }
+sf::Vector2i Snake::getHeadPosition() const
+{
+    return _body.front(); // tête du serpent
+}
 
+const std::vector<sf::Vector2i>& Snake::getBody() const
+{
+    return _body; // tout le corps
+}
 void Snake::move()
 {
+    // nouvelle position de la tête
     sf::Vector2i newHead = _body.front() + _direction;
+
+    // limites de la grille (800x600 avec cases de 32px)
+    int maxX = 25;
+    int maxY = 18;
+
+    //  BLOQUER SI LE SERPENT SORT
+    if (newHead.x < 0 || newHead.x >= maxX ||
+        newHead.y < 0 || newHead.y >= maxY)
+    {
+        return; // ? on ne bouge pas
+    }
+
+    // ajouter la nouvelle tête
     _body.insert(_body.begin(), newHead);
 
+    // gestion de la croissance
     if (_grandit)
     {
         _grandit = false;
@@ -91,5 +112,18 @@ void Snake::initialise()
     _spriteCorps.setTexture(_textureCorps);
     _spriteQueue.setTexture(_textureQueue);
 
+}
+
+bool Snake::checkCollisionWithWall(int width, int height)
+{
+    sf::Vector2i head = _body.front();
+
+    if (head.x < 0 || head.x >= width ||
+        head.y < 0 || head.y >= height)
+    {
+        return true;
+    }
+
+    return false;
 }
 

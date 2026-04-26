@@ -32,6 +32,9 @@ private:
 public:
     Snake();
 
+    sf::Vector2i getHeadPosition() const;
+    const std::vector<sf::Vector2i>& getBody() const;
+
     void setDirection(const sf::Vector2i& newdirection);
     void move();
     void grow(); // allonger le serpent chaque fois qu'il mange
@@ -39,5 +42,6 @@ public:
     void draw(sf::RenderWindow& window);
     
     void initialise();
+    bool checkCollisionWithWall(int width, int height);
 
 };

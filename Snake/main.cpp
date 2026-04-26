@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Snake.h"
 #include "Game.h"
+#include "food.h"
 
 int main()
 {

@@ -1,3 +1,4 @@
+#include "Snake.h"
 #include "Game.h"
 
 using namespace sf;
@@ -20,12 +21,15 @@ Game::Game()
         800.0f / _textureFond.getSize().x,
         600.0f / _textureFond.getSize().y
     );
+    food.spawn(snake.getBody());
 }
 
 void Game::run()
 {
+
     while (window.isOpen())
     {
+       
         Event event;
 
         while (window.pollEvent(event))
@@ -51,17 +55,25 @@ void Game::run()
         }
 
         // mouvement automatique
-        if (clock.getElapsedTime().asMilliseconds() > 150)
+        if (clock.getElapsedTime().asSeconds() > 0.2f)
         {
             snake.move();
             clock.restart();
         }
 
+        if (snake.getHeadPosition() == food.getPosition())
+        {
+            snake.grow();
+            food.incrementScore();
+            food.spawn(snake.getBody());
+        }
+
         // affichage
         window.clear();
 
-        window.draw(_spriteFond); // fond
-        snake.draw(window);       // serpent
+        window.draw(_spriteFond);
+        food.draw(window);   
+        snake.draw(window); 
 
         window.display();
     }
