@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include "food.h"
 #include "Snake.h"
+#include "menu.h"
 
 class Game
 {
