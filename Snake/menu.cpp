@@ -17,7 +17,7 @@ void Menu::init()
     _font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 
     
-    if (!_backgroundTexture.loadFromFile("Snake/ressources/snakeImage.png"))
+    if (!_backgroundTexture.loadFromFile("ressources/snakeImage.png"))
     {
         std::cout << "Erreur chargement fond\n";
     }
