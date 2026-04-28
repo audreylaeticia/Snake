@@ -6,8 +6,8 @@ using namespace sf;
 Game::Game()
 {
     lives = 3;
-    window.create(VideoMode(800, 600), "Snake");
-    window.setFramerateLimit(60);
+   /* window.create(VideoMode(800, 600), "Snake");
+    window.setFramerateLimit(60);*/
 
     // charger le fond
     if (!_textureFond.loadFromFile("ressources/imageFond.png"))
@@ -36,7 +36,7 @@ Game::Game()
     food.spawn(snake.getBody());
 }
 
-void Game::run()
+void Game::run(sf::RenderWindow& window)
 {
 
     while (window.isOpen())

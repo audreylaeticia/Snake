@@ -9,10 +9,10 @@ class Game
 {
 public:
 	Game();
-	void run();
+	void run(sf::RenderWindow& window);
 
 private:
-	sf::RenderWindow window;
+	//sf::RenderWindow window;
 	sf::Texture _textureFond;
 	sf::Sprite _spriteFond;
 	sf::RectangleShape _fond;

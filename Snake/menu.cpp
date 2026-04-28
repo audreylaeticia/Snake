@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "menu.h"
 
+using namespace std;
+
 Menu::Menu()
 {
 		init();
@@ -12,7 +14,20 @@ Menu::Menu()
 void Menu::init()
 {
     
-        _font.loadFromFile("arial.ttf");
+    _font.loadFromFile("C:/Windows/Fonts/arial.ttf");
+
+    
+    if (!_backgroundTexture.loadFromFile("Snake/ressources/snakeImage.png"))
+    {
+        std::cout << "Erreur chargement fond\n";
+    }
+    //_backgroundTexture.loadFromFile("Snake/snakeImage.jpg");
+    _backgroundSprite.setTexture(_backgroundTexture);
+
+    _backgroundSprite.setScale(
+        800.0f / _backgroundTexture.getSize().x,
+        600.0f / _backgroundTexture.getSize().y
+    );
 
         // pour le  bouton play
         _playButton.setSize(sf::Vector2f(200, 50));
@@ -37,6 +52,7 @@ void Menu::init()
 }
 
 int Menu::run(sf::RenderWindow& window)
+
 {
     while (window.isOpen()) {
 
@@ -46,7 +62,7 @@ int Menu::run(sf::RenderWindow& window)
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // 🖱️ clic souris
+            // si clic souris
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
 
@@ -63,23 +79,25 @@ int Menu::run(sf::RenderWindow& window)
             }
         }
 
-        // 🖱️ position souris
+        // position de la souris
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
-        // 🎨 hover PLAY
+        //play
         if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
             _playButton.setFillColor(sf::Color::Red);
         else
             _playButton.setFillColor(sf::Color::Blue);
 
-        // 🎨 hover QUIT
+        // Quit
         if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
             _quitButton.setFillColor(sf::Color::Red);
         else
             _quitButton.setFillColor(sf::Color::Blue);
 
-        // 🎨 affichage
+        // pour l'affichage
         window.clear();
+        window.draw(_backgroundSprite);
+
         window.draw(_playButton);
         window.draw(_playText);
         window.draw(_quitButton);

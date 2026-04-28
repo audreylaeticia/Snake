@@ -6,20 +6,24 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake");
+    window.setFramerateLimit(60);
 
     Menu menu;
 
-    int choice = menu.run(window);
+    int choix = menu.run(window);
 
-    if (choice == 1) {
-        // pour lancer le jeu
+    if (choix == 1) {
+        Game game;// pour lancer le jeu
+        game.run(window);
     }
     else {
-        window.close();//fermer
+        std::cout << "Vous nous quittez, au revoir et a la prochaine !" << std::endl;
+        window.close(); //pour fermer la console
+       // break;
     }
 
-    Game game;
-    game.run();
+    //Game game;
+    //game.run();
 
-    return 0;
+    //return 0;
 }
