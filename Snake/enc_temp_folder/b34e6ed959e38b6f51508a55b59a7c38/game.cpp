@@ -9,8 +9,6 @@ Game::Game()
    /* window.create(VideoMode(800, 600), "Snake");
     window.setFramerateLimit(60);*/
 
-
-
     // charger le fond
     if (!_textureFond.loadFromFile("ressources/imageFond.png"))
     {
