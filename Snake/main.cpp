@@ -14,7 +14,7 @@ int main()
 
     if (choix == 1) {
         Game game;// pour lancer le jeu
-        game.run(window);
+        game.run();
     }
     else {
         std::cout << "Vous nous quittez, au revoir et a la prochaine !" << std::endl;

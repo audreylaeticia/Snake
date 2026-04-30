@@ -37,6 +37,7 @@ public:
     void saveRecord();
     void loadRecord();
     void initialiserTexte();
+    int getScore() const;
 
 
 
