@@ -43,5 +43,7 @@ public:
     
     void initialise();
     bool checkCollisionWithWall(int width, int height);
+    bool willHitWall(int width, int height) const;
+    bool checkSelfCollision() const;
 
 };

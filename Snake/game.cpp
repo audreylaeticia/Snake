@@ -5,11 +5,11 @@ using namespace sf;
 
 Game::Game()
 {
-    lives = 3;
+   
    /* window.create(VideoMode(800, 600), "Snake");
     window.setFramerateLimit(60);*/
 
-
+    hasStarted = false;
 
     // charger le fond
     if (!_textureFond.loadFromFile("ressources/imageFond.png"))
@@ -17,16 +17,12 @@ Game::Game()
         std::cout << "Erreur chargement fond\n";
     }
 
-    if (!font.loadFromFile("ressources/arial.ttf"))
+    if (!_font.loadFromFile("ressources/arial.ttf"))
     {
         std::cout << "Erreur chargement police\n";
     }
 
-    // config texte
-    textLives.setFont(font);
-    textLives.setCharacterSize(20);
-    textLives.setFillColor(sf::Color::White);
-    textLives.setPosition(10, 10);
+    
 
     _spriteFond.setTexture(_textureFond);
 
@@ -40,70 +36,77 @@ Game::Game()
 
 void Game::run(sf::RenderWindow& window)
 {
-
     while (window.isOpen())
     {
-       
-        Event event;
+        sf::Event event;
 
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
+            if (event.type == sf::Event::Closed)
                 window.close();
 
             // clavier
-            if (event.type == Event::KeyPressed)
+            if (event.type == sf::Event::KeyPressed)
             {
-                if (event.key.code == Keyboard::Up)
+                if (event.key.code == sf::Keyboard::Up)
+                {
                     snake.setDirection({ 0, -1 });
+                    hasStarted = true; 
+                }
 
-                if (event.key.code == Keyboard::Down)
+                if (event.key.code == sf::Keyboard::Down)
+                {
                     snake.setDirection({ 0, 1 });
+                    hasStarted = true;
+                }
 
-                if (event.key.code == Keyboard::Left)
+                if (event.key.code == sf::Keyboard::Left)
+                {
                     snake.setDirection({ -1, 0 });
+                    hasStarted = true;
+                }
 
-                if (event.key.code == Keyboard::Right)
+                if (event.key.code == sf::Keyboard::Right)
+                {
                     snake.setDirection({ 1, 0 });
+                    hasStarted = true;
+                }
             }
         }
 
-        // mouvement automatique
-        if (clock.getElapsedTime().asSeconds() > 0.2f)
+        // mouvement automatique (avec contrôle du démarrage)
+        if (hasStarted && clock.getElapsedTime().asSeconds() > 0.2f)
         {
-            snake.move();
-            if (snake.checkCollisionWithWall(25, 18))
+            if (snake.willHitWall(25, 18))
             {
-                lives--;
-
-                if (lives <= 0)
-                {
-                    window.close(); // game over
-                }
-                else
-                {
-                    snake.initialise(); // reset position
-                    food.spawn(snake.getBody());
-                }
+                window.close(); // GAME OVER
             }
+            else
+            {
+                snake.move();
+                    if (snake.checkSelfCollision())
+                    {
+                        window.close(); // GAME OVER
+                    }
+            }
+
             clock.restart();
         }
 
+        // collision nourriture
         if (snake.getHeadPosition() == food.getPosition())
         {
             snake.grow();
             food.incrementScore();
             food.spawn(snake.getBody());
         }
-        textLives.setString("Vies: " + std::to_string(lives));
 
         // affichage
         window.clear();
 
         window.draw(_spriteFond);
-        food.draw(window);   
-        snake.draw(window); 
-        window.draw(textLives);
+        food.draw(window);
+        snake.draw(window);
 
         window.display();
     }

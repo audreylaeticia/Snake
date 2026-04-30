@@ -86,17 +86,24 @@ sf::Vector2i Food::getPosition() const
 
 void Food::saveRecord()
 {
-       std:: ofstream file("record.txt");
-        if (file.is_open())
-            file << "Vous avez terminé votre partie avec un meilleur score de: "<<_record;
-        file.close();
+    std::ofstream file("record.txt");
+    if (file.is_open())
+    {
+        file << _record; 
     }
+}
 
 void Food::loadRecord()
 {
     std::ifstream file("record.txt");
     if (file.is_open())
+    {
         file >> _record;
+    }
+    else
+    {
+        _record = 0; 
+    }
 }
 
 

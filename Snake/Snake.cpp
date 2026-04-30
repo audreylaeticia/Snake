@@ -127,3 +127,31 @@ bool Snake::checkCollisionWithWall(int width, int height)
 
     return false;
 }
+
+bool Snake::willHitWall(int width, int height) const
+{
+    sf::Vector2i next = _body.front() + _direction;
+
+    if (next.x < 0 || next.x >= width ||
+        next.y < 0 || next.y >= height)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Snake::checkSelfCollision() const
+{
+    sf::Vector2i head = _body.front();
+
+    for (int i = 1; i < _body.size(); i++)
+    {
+        if (_body[i] == head)
+        {
+            return true; // collision avec soi-même
+        }
+    }
+
+    return false;
+}
