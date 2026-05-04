@@ -53,6 +53,30 @@ void Menu::init()
     _quitText.setString("Quit");
     _quitText.setCharacterSize(24);
     _quitText.setPosition(350, 310);
+
+    // bouton infos
+    _infoButton.setSize(sf::Vector2f(200, 50));
+    _infoButton.setPosition(300, 400);
+    _infoButton.setFillColor(sf::Color::Blue);
+
+    _infoText.setFont(_font);
+    _infoText.setString("Infos");
+    _infoText.setCharacterSize(24);
+    _infoText.setPosition(350, 410);
+
+    // texte infos (mode d'emploi)
+    _infoDisplay.setFont(_font);
+    _infoDisplay.setCharacterSize(20);
+    _infoDisplay.setFillColor(sf::Color::White);
+    _infoDisplay.setPosition(50, 100);
+
+    _infoDisplay.setString(
+        "Mode d'emploi:\n\n"
+        "- Fleches pour bouger\n"
+        "- Mange pour grandir\n"
+        "- Evite les murs\n\n"
+        "Appuie sur ESC pour revenir"
+    );
 }
 
 int Menu::run(sf::RenderWindow& window)
@@ -69,17 +93,29 @@ int Menu::run(sf::RenderWindow& window)
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
 
-                    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
-                    if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                        menuMusic.stop(); // 🔥 AJOUT ICI
-                        return 1; // PLAY
-                    }
-
-                    if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                        return 0; // QUIT
+                    // on bloque les clics si on est dans l'écran infos
+                    if (!_showInfo)
+                    {
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                        
+                        if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                            menuMusic.stop();
+                            return 1;
+                        }
+                        else if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                            return 0;
+                        }
+                        else if (_infoButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                            _showInfo = true;
+                        }
                     }
                 }
+            }
+
+            if (event.type == sf::Event::KeyPressed &&
+                event.key.code == sf::Keyboard::Escape)
+            {
+                _showInfo = false;
             }
         }
 
@@ -98,14 +134,31 @@ int Menu::run(sf::RenderWindow& window)
         else
             _quitButton.setFillColor(sf::Color::Blue);
 
+        //hover infos
+        if (_infoButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+            _infoButton.setFillColor(sf::Color::Yellow);
+        else
+            _infoButton.setFillColor(sf::Color::Blue);
+
         // affichage
         window.clear();
         window.draw(_backgroundSprite);
 
-        window.draw(_playButton);
-        window.draw(_playText);
-        window.draw(_quitButton);
-        window.draw(_quitText);
+        if (_showInfo)
+        {
+            window.draw(_infoDisplay);
+        }
+        else
+        {
+            window.draw(_playButton);
+            window.draw(_playText);
+
+            window.draw(_quitButton);
+            window.draw(_quitText);
+
+            window.draw(_infoButton);
+            window.draw(_infoText);
+        }
 
         window.display();
     }

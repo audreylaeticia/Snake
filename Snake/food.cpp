@@ -141,3 +141,8 @@ int Food::getScore() const
 {
     return _score;
 }
+
+void Food::resetScore()
+{
+    _score = 0;
+}

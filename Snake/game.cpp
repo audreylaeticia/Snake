@@ -13,6 +13,7 @@ Game::Game()
     gameOver = false;
     speed = 0.2f;
     minSpeed = 0.05f;
+    int score;
 
     if (!_font.loadFromFile("ressources/arial.ttf"))
     {
@@ -74,6 +75,8 @@ void Game::resetGame()
 
     snake.initialise();
     food.spawn(snake.getBody());
+    food.resetScore();
+    clock.restart();
 }
 
 void Game::startMusic()

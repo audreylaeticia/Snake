@@ -14,16 +14,24 @@ private:
     sf::RectangleShape _quitButton;
     sf::Text _quitText;
 
+    sf::RectangleShape _infoButton;
+    sf::Text _infoText;
+    sf::Text _infoDisplay;
+    bool _showInfo = false;
+
     sf::Texture _backgroundTexture;
 
     sf::Texture _textureFond;
     sf::Sprite _backgroundSprite;
     sf::Music menuMusic;
 
+
+
 public:
     Menu();
 
     void init(); // initialise les boutons
    int run(sf::RenderWindow& window); // lance le menu
+
     
 };
