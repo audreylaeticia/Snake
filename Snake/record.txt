@@ -1,1 +1,5 @@
+<<<<<<< Updated upstream
 27
+=======
+Vous avez terminé votre partie avec un meilleur score de: 3
+>>>>>>> Stashed changes
