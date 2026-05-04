@@ -1,47 +1,90 @@
-#include "Snake.h"
+ï»¿#include "Snake.h"
 #include "Game.h"
+#include <iostream>
 
 using namespace sf;
 
 Game::Game()
 {
-    lives = 3;
-   /* window.create(VideoMode(800, 600), "Snake");
-    window.setFramerateLimit(60);*/
+    window.create(VideoMode(800, 700), "Snake");
+    window.setFramerateLimit(60);
 
-    // charger le fond
+    hasStarted = false;
+    gameOver = false;
+    speed = 0.2f;
+    minSpeed = 0.05f;
+
+    if (!_font.loadFromFile("ressources/arial.ttf"))
+    {
+        std::cout << "Erreur chargement police\n";
+    }
+
+    initGameOverUI();
+
+    uiBar.setSize(sf::Vector2f(800, 100));
+    uiBar.setFillColor(sf::Color(40, 40, 40));
+    uiBar.setPosition(0, 0);
+
     if (!_textureFond.loadFromFile("ressources/imageFond.png"))
     {
         std::cout << "Erreur chargement fond\n";
     }
 
-    if (!font.loadFromFile("ressources/arial.ttf"))
-    {
-        std::cout << "Erreur chargement police\n";
-    }
-
-    // config texte
-    textLives.setFont(font);
-    textLives.setCharacterSize(20);
-    textLives.setFillColor(sf::Color::White);
-    textLives.setPosition(10, 10);
-
     _spriteFond.setTexture(_textureFond);
 
-    // adapter à la fenêtre
     _spriteFond.setScale(
         800.0f / _textureFond.getSize().x,
         600.0f / _textureFond.getSize().y
     );
+
+    _spriteFond.setPosition(0, 100);
+
+    food.spawn(snake.getBody());
+
+    if (!keyBuffer.loadFromFile("ressources/music_move.wav"))
+    {
+        std::cout << "Erreur son touche\n";
+    }
+
+    keySound.setBuffer(keyBuffer);
+    keySound.setVolume(30);
+
+
+    if (!eatBuffer.loadFromFile("ressources/music_food.wav"))
+    {
+        std::cout << "Erreur son pomme\n";
+    }
+
+    eatSound.setBuffer(eatBuffer);
+    eatSound.setVolume(40);
+
+    if (!gameMusic.openFromFile("ressources/son.wav"))
+    {
+        std::cout << "Erreur musique jeu\n";
+    }
+
+    gameMusic.setLoop(true);
+    gameMusic.setVolume(30); 
+}
+
+void Game::resetGame()
+{
+    gameOver = false;
+    hasStarted = false;
+
+    snake.initialise();
     food.spawn(snake.getBody());
 }
 
-void Game::run(sf::RenderWindow& window)
+void Game::startMusic()
 {
+    gameMusic.play();
+}
 
+void Game::run()
+{
     while (window.isOpen())
     {
-       
         Event event;
 
         while (window.pollEvent(event))
@@ -49,60 +92,132 @@ void Game::run(sf::RenderWindow& window)
             if (event.type == Event::Closed)
                 window.close();
 
-            // clavier
-            if (event.type == Event::KeyPressed)
+            if (event.type == sf::Event::KeyPressed)
             {
-                if (event.key.code == Keyboard::Up)
+                if (event.key.code == sf::Keyboard::Up)
+                {
                     snake.setDirection({ 0, -1 });
+                    keySound.play();
+                    hasStarted = true; 
+                }
 
-                if (event.key.code == Keyboard::Down)
+                if (event.key.code == sf::Keyboard::Down)
+                {
                     snake.setDirection({ 0, 1 });
+                    keySound.play();
+                    hasStarted = true; 
+                }
 
-                if (event.key.code == Keyboard::Left)
+                if (event.key.code == sf::Keyboard::Left)
+                {
                     snake.setDirection({ -1, 0 });
+                    keySound.play();
+                    hasStarted = true; 
+                }
 
-                if (event.key.code == Keyboard::Right)
+                if (event.key.code == sf::Keyboard::Right)
+                {
                     snake.setDirection({ 1, 0 });
+                    keySound.play();
+                    hasStarted = true; 
+                }
+            }
+
+            if (gameOver && event.type == Event::MouseButtonPressed)
+            {
+                Vector2i mousePos = Mouse::getPosition(window);
+
+                if (replayButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                {
+                    resetGame();
+                }
             }
         }
 
-        // mouvement automatique
-        if (clock.getElapsedTime().asSeconds() > 0.2f)
+        if (!gameOver && hasStarted && clock.getElapsedTime().asSeconds() > speed)
         {
-            snake.move();
-            if (snake.checkCollisionWithWall(25, 18))
+            if (snake.willHitWall(25, 18))
             {
-                lives--;
+                gameOver = true;
+            }
+            else
+            {
+                snake.move();
 
-                if (lives <= 0)
+                if (snake.checkSelfCollision())
                 {
-                    window.close(); // game over
-                }
-                else
-                {
-                    snake.initialise(); // reset position
-                    food.spawn(snake.getBody());
+                    gameOver = true;
                 }
             }
+
             clock.restart();
         }
 
-        if (snake.getHeadPosition() == food.getPosition())
+        if (!gameOver && snake.getHeadPosition() == food.getPosition())
         {
+            speed -= 0.01f;
+
+            if (speed < minSpeed)
+                speed = minSpeed;
+
             snake.grow();
             food.incrementScore();
             food.spawn(snake.getBody());
+            eatSound.play(); 
         }
-        textLives.setString("Vies: " + std::to_string(lives));
 
-        // affichage
         window.clear();
 
+        window.draw(uiBar);
         window.draw(_spriteFond);
-        food.draw(window);   
-        snake.draw(window); 
-        window.draw(textLives);
+        food.draw(window);
+        snake.draw(window);
+
+        if (gameOver)
+        {
+            textFinalScore.setString(
+                "Score: " + std::to_string(food.getScore())
+            );
+
+            window.draw(overlay);
+            window.draw(panel);
+            window.draw(textGameOver);
+            window.draw(textFinalScore);
+            window.draw(replayButton);
+            window.draw(textReplay);
+        }
 
         window.display();
     }
+}
+
+void Game::initGameOverUI()
+{
+    overlay.setSize(sf::Vector2f(800, 700));
+    overlay.setFillColor(sf::Color(0, 0, 0, 150));
+
+    panel.setSize(sf::Vector2f(300, 220));
+    panel.setFillColor(sf::Color(200, 160, 40));
+    panel.setPosition(250, 200);
+
+    replayButton.setSize(sf::Vector2f(200, 50));
+    replayButton.setFillColor(sf::Color(50, 180, 50));
+    replayButton.setPosition(300, 350);
+
+    textGameOver.setFont(_font);
+    textGameOver.setString("GAME OVER");
+    textGameOver.setCharacterSize(28);
+    textGameOver.setFillColor(sf::Color::White);
+    textGameOver.setPosition(300, 220);
+
+    textFinalScore.setFont(_font);
+    textFinalScore.setCharacterSize(20);
+    textFinalScore.setFillColor(sf::Color::White);
+    textFinalScore.setPosition(320, 270);
+
+    textReplay.setFont(_font);
+    textReplay.setString("REPLAY");
+    textReplay.setCharacterSize(20);
+    textReplay.setFillColor(sf::Color::White);
+    textReplay.setPosition(350, 360);
 }

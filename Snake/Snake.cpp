@@ -30,24 +30,11 @@ const std::vector<sf::Vector2i>& Snake::getBody() const
 }
 void Snake::move()
 {
-    // nouvelle position de la tête
     sf::Vector2i newHead = _body.front() + _direction;
 
-    // limites de la grille (800x600 avec cases de 32px)
-    int maxX = 25;
-    int maxY = 18;
 
-    //  BLOQUER SI LE SERPENT SORT
-    if (newHead.x < 0 || newHead.x >= maxX ||
-        newHead.y < 0 || newHead.y >= maxY)
-    {
-        return; // ? on ne bouge pas
-    }
-
-    // ajouter la nouvelle tête
     _body.insert(_body.begin(), newHead);
 
-    // gestion de la croissance
     if (_grandit)
     {
         _grandit = false;
@@ -76,7 +63,10 @@ void Snake::draw(sf::RenderWindow& window)
         else
             sprite = _spriteCorps;
 
-        sprite.setPosition(_body[i].x * 32, _body[i].y * 32);
+        sprite.setPosition(
+            _body[i].x * 32,
+            _body[i].y * 32 + 100 // décalage vertical
+        );
 
         window.draw(sprite);
     }
@@ -123,6 +113,34 @@ bool Snake::checkCollisionWithWall(int width, int height)
         head.y < 0 || head.y >= height)
     {
         return true; // collision détectée
+    }
+
+    return false;
+}
+
+bool Snake::willHitWall(int width, int height) const
+{
+    sf::Vector2i next = _body.front() + _direction;
+
+    if (next.x < 0 || next.x >= width ||
+        next.y < 0 || next.y >= height)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Snake::checkSelfCollision() const
+{
+    sf::Vector2i head = _body.front();
+
+    for (int i = 1; i < _body.size(); i++)
+    {
+        if (_body[i] == head)
+        {
+            return true; // collision avec soi-même
+        }
     }
 
     return false;

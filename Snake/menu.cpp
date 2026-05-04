@@ -6,22 +6,19 @@ using namespace std;
 
 Menu::Menu()
 {
-		init();
-	
+    init();
 }
 
-//j'initialise  le menu 
+// j'initialise le menu 
 void Menu::init()
 {
-    
     _font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 
-    
     if (!_backgroundTexture.loadFromFile("ressources/snakeImage.png"))
     {
         std::cout << "Erreur chargement fond\n";
     }
-    //_backgroundTexture.loadFromFile("Snake/snakeImage.jpg");
+
     _backgroundSprite.setTexture(_backgroundTexture);
 
     _backgroundSprite.setScale(
@@ -29,30 +26,36 @@ void Menu::init()
         600.0f / _backgroundTexture.getSize().y
     );
 
-        // pour le  bouton play
-        _playButton.setSize(sf::Vector2f(200, 50));
-        _playButton.setPosition(300, 200);
-        _playButton.setFillColor(sf::Color::Blue);
+    if (!menuMusic.openFromFile("ressources/music_music.wav"))
+    {
+        std::cout << "Erreur musique\n";
+    }
 
-        _playText.setFont(_font);
-        _playText.setString("Play");
-        _playText.setCharacterSize(24);
-        _playText.setPosition(350, 210);
+    menuMusic.setLoop(true);
+    menuMusic.play();
 
-        // pour le  bouton quitter
-        _quitButton.setSize(sf::Vector2f(200, 50));
-        _quitButton.setPosition(300, 300);
-        _quitButton.setFillColor(sf::Color::Blue);
+    // bouton play
+    _playButton.setSize(sf::Vector2f(200, 50));
+    _playButton.setPosition(300, 200);
+    _playButton.setFillColor(sf::Color::Blue);
 
-        _quitText.setFont(_font);
-        _quitText.setString("Quit");
-        _quitText.setCharacterSize(24);
-        _quitText.setPosition(350, 310);
-   
+    _playText.setFont(_font);
+    _playText.setString("Play");
+    _playText.setCharacterSize(24);
+    _playText.setPosition(350, 210);
+
+    // bouton quitter
+    _quitButton.setSize(sf::Vector2f(200, 50));
+    _quitButton.setPosition(300, 300);
+    _quitButton.setFillColor(sf::Color::Blue);
+
+    _quitText.setFont(_font);
+    _quitText.setString("Quit");
+    _quitText.setCharacterSize(24);
+    _quitText.setPosition(350, 310);
 }
 
 int Menu::run(sf::RenderWindow& window)
-
 {
     while (window.isOpen()) {
 
@@ -62,13 +65,14 @@ int Menu::run(sf::RenderWindow& window)
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // si clic souris
+            // clic souris
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
 
                     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
                     if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                        menuMusic.stop(); // 🔥 AJOUT ICI
                         return 1; // PLAY
                     }
 
@@ -79,22 +83,22 @@ int Menu::run(sf::RenderWindow& window)
             }
         }
 
-        // position de la souris
+        // position souris
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
-        //play
+        // hover play
         if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
-            _playButton.setFillColor(sf::Color::Red);
+            _playButton.setFillColor(sf::Color::Green);
         else
             _playButton.setFillColor(sf::Color::Blue);
 
-        // Quit
+        // hover quit
         if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
             _quitButton.setFillColor(sf::Color::Red);
         else
             _quitButton.setFillColor(sf::Color::Blue);
 
-        // pour l'affichage
+        // affichage
         window.clear();
         window.draw(_backgroundSprite);
 
@@ -102,6 +106,7 @@ int Menu::run(sf::RenderWindow& window)
         window.draw(_playText);
         window.draw(_quitButton);
         window.draw(_quitText);
+
         window.display();
     }
 

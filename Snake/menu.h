@@ -18,6 +18,7 @@ private:
 
     sf::Texture _textureFond;
     sf::Sprite _backgroundSprite;
+    sf::Music menuMusic;
 
 public:
     Menu();
