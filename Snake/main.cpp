@@ -14,6 +14,7 @@ int main()
 
     if (choix == 1) {
         Game game;// pour lancer le jeu
+        game.startMusic();
         game.run();
     }
     else {

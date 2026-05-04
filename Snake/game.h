@@ -12,6 +12,7 @@ public:
 	void run();
 	void initGameOverUI();
 	void resetGame();
+	void startMusic();
 
 private:
 	sf::RenderWindow window;
@@ -21,6 +22,9 @@ private:
 	sf::Clock clock;
 	sf::Font _font;
 	sf::RectangleShape uiBar;
+
+	sf::Texture backgroundTexture;
+	sf::Sprite background;
 	
 
 	sf::RectangleShape overlay;
@@ -32,15 +36,20 @@ private:
 	sf::Text textReplay;
 	Snake snake;
 	Food food;
+	sf::SoundBuffer keyBuffer;
+	sf::Sound keySound;
+
+	sf::SoundBuffer eatBuffer;
+	sf::Sound eatSound;
+	sf::Music gameMusic;
 
 	bool hasStarted;
 	bool gameOver;
+
+	float speed;
+	float minSpeed;
 	
 
-	
-
-	sf::Texture backgroundTexture;
-	sf::Sprite background;
 };
 
 
