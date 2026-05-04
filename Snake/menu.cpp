@@ -71,11 +71,22 @@ void Menu::init()
     _infoDisplay.setPosition(50, 100);
 
     _infoDisplay.setString(
-        "Mode d'emploi:\n\n"
-        "- Fleches pour bouger\n"
-        "- Mange pour grandir\n"
-        "- Evite les murs\n\n"
-        "Appuie sur ESC pour revenir"
+        "SNAKE - MODE D'EMPLOI\n\n"
+        "Le jeu Snake est un jeu classique ou vous controlez un serpent qui se deplace sur une grille.\n"
+        "Le but est de manger la nourriture pour faire grandir le serpent et augmenter votre score.\n\n"
+        "COMMENT JOUER :\n"
+        "- Utilisez les fleches du clavier (↑ ↓ ← →) pour deplacer le serpent\n"
+        "- Chaque nourriture mangee augmente votre score\n"
+        "- Le serpent grandit a chaque fois que vous mangez\n\n"
+        "REGLES DU JEU :\n"
+        "- Ne touchez pas les murs\n"
+        "- Ne vous mordez pas vous-meme\n"
+        "- Plus vous mangez, plus le jeu devient difficile\n\n"
+        "PAUSE :\n"
+        "- Appuyez sur ESC pour mettre le jeu en pause\n"
+        "- Vous pouvez reprendre depuis le menu\n\n"
+        "OBJECTIF :\n"
+        "Obtenez le meilleur score possible et battez votre record !"
     );
 }
 
