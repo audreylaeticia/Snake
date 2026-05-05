@@ -172,11 +172,20 @@ void Game::run(sf::RenderWindow& window)
             {
                 Vector2i mousePos = Mouse::getPosition(window);
 
+                if (returnButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                {
+                    
+                    resetGame();
+                    paused = false;
+                    return;
+                    
+                }
                 if (replayButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
                 {
                     resetGame();
                 }
             }
+
         }
 
         if (!paused && !gameOver && hasStarted && clock.getElapsedTime().asSeconds() > speed)
@@ -232,6 +241,8 @@ void Game::run(sf::RenderWindow& window)
             window.draw(textFinalScore);
             window.draw(replayButton);
             window.draw(textReplay);
+            window.draw(returnButton);
+            window.draw(textReturn);
         }
 
         if (paused)
@@ -252,9 +263,9 @@ void Game::initGameOverUI()
     panel.setFillColor(sf::Color(200, 160, 40));
     panel.setPosition(250, 200);
 
-    replayButton.setSize(sf::Vector2f(200, 50));
-    replayButton.setFillColor(sf::Color(50, 180, 50));
-    replayButton.setPosition(300, 350);
+    
+
+   
 
     textGameOver.setFont(_font);
     textGameOver.setString("GAME OVER");
@@ -267,16 +278,24 @@ void Game::initGameOverUI()
     textFinalScore.setFillColor(sf::Color::White);
     textFinalScore.setPosition(320, 270);
 
+    returnButton.setSize(sf::Vector2f(200, 50));
+    returnButton.setFillColor(sf::Color(50, 180, 50));
+    returnButton.setPosition(300, 310);
+
+    textReturn.setFont(_font);
+    textReturn.setString("RETURN");
+    textReturn.setCharacterSize(20);
+    textReturn.setFillColor(sf::Color::White);
+    textReturn.setPosition(360, 320);
+
+    replayButton.setSize(sf::Vector2f(200, 50));
+    replayButton.setFillColor(sf::Color(50, 180, 50));
+    replayButton.setPosition(300, 370);
+
     textReplay.setFont(_font);
     textReplay.setString("REPLAY");
     textReplay.setCharacterSize(20);
     textReplay.setFillColor(sf::Color::White);
-    textReplay.setPosition(350, 360);
+	
 
-    textPause.setFont(_font);
-    textPause.setString("PAUSE");
-    textPause.setCharacterSize(40);
-    textPause.setFillColor(sf::Color::White);
-    textPause.setPosition(320, 250);
 }
-
