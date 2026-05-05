@@ -32,10 +32,13 @@ private:
 	sf::RectangleShape overlay;
 	sf::RectangleShape panel;
 	sf::RectangleShape replayButton;
+	sf::RectangleShape returnButton;
 
 	sf::Text textGameOver;
 	sf::Text textFinalScore;
 	sf::Text textReplay;
+	sf::Text textReturn;
+
 	Snake snake;
 	Food food;
 	sf::SoundBuffer keyBuffer;
