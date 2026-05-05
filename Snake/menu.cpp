@@ -81,11 +81,11 @@ void Menu::init()
 
     _infoDisplay.setString(
         "SNAKE - MODE D'EMPLOI\n\n"
-        "Le jeu Snake est un jeu classique ou vous controlez un serpent qui se deplace sur une grille.\n"
+        "Le jeu Snake est un jeu classique ou vous controlez un serpent qui se déplace sur une grille.\n"
         "Le but est de manger la nourriture pour faire grandir le serpent et augmenter votre score.\n\n"
         "COMMENT JOUER :\n"
-        "- Utilisez les fleches du clavier (↑ ↓ ← →) pour deplacer le serpent\n"
-        "- Chaque nourriture mangee augmente votre score\n"
+        "- Utilisez les fleches du clavier (↑ ↓ ← →) pour déplacer le serpent\n"
+        "- Chaque nourriture manger augmente votre score\n"
         "- Le serpent grandit a chaque fois que vous mangez\n\n"
         "REGLES DU JEU :\n"
         "- Ne touchez pas les murs\n"
@@ -105,13 +105,13 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
     {
         sf::Event event;
 
-        // 🔥 EVENTS UNIQUEMENT
+        // EVENTS UNIQUEMENT
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // 🔥 ESC pour quitter infos
+            // ESC pour quitter infos
             if (event.type == sf::Event::KeyPressed &&
                 event.key.code == sf::Keyboard::Escape)
             {
@@ -143,7 +143,7 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
             }
         }
 
-        // 🔥 AFFICHAGE (EN DEHORS)
+        // AFFICHAGE (EN DEHORS)
         window.clear();
         window.draw(_backgroundSprite);
 

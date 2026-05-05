@@ -104,7 +104,7 @@ void Food::saveRecord()
     }
 }
 
-// 🔥 chargement record
+//chargement record
 void Food::loadRecord()
 {
     ifstream file("record.txt");
@@ -129,7 +129,7 @@ void Food::initialiserTexte()
     _textScore.setFont(_font);
     _textScore.setCharacterSize(22);
     _textScore.setFillColor(sf::Color::White);
-    _textScore.setPosition(20, 20); // 🔥 dans la barre UI
+    _textScore.setPosition(20, 20); //dans la barre UI
 
     _textRecord.setFont(_font);
     _textRecord.setCharacterSize(22);
