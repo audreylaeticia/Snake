@@ -32,7 +32,7 @@ void Menu::init()
     }
 
     menuMusic.setLoop(true);
-    
+    menuMusic.setVolume(40);
 
     // bouton play
     _playButton.setSize(sf::Vector2f(200, 50));
