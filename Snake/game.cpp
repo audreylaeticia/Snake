@@ -296,6 +296,6 @@ void Game::initGameOverUI()
     textReplay.setString("REPLAY");
     textReplay.setCharacterSize(20);
     textReplay.setFillColor(sf::Color::White);
-	
+    textReplay.setPosition(365, 380);
 
 }
