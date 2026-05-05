@@ -84,36 +84,30 @@ void Game::startMusic()
 {
     gameMusic.play();
 }
-
 void Game::runApp(sf::RenderWindow& window)
 {
     Menu menu;
-    Game game;
-
 
     while (window.isOpen())
     {
-        int choix = menu.run(window, game.paused);
+        int choix = menu.run(window, paused);
 
         if (choix == 1) // PLAY
         {
-            game.resetGame(); // nouvelle partie
-            game.paused = false;
-            game.run(window);
+            resetGame();
+            paused = false;
+            run(window);
         }
         else if (choix == 2) // REPRENDRE
         {
-            game.paused = false;
-            game.run(window); // reprend là où tu étais
+            paused = false;
+            run(window);
         }
-        else {
-            std::cout << "Vous nous quittez, au revoir et a la prochaine !" << std::endl;
-            window.close(); //pour fermer la console
-            // break;
+        else
+        {
+            std::cout << "Vous nous quittez, au revoir !" << std::endl;
+            window.close();
         }
-
-        //Game game;
-        //game.run();
     }
 }
 
@@ -182,7 +176,7 @@ void Game::run(sf::RenderWindow& window)
 
         if (!gameOver && hasStarted && clock.getElapsedTime().asSeconds() > speed)
         {
-            if (snake.willHitWall(25, 18))
+            if (snake.willHitWall(25, 15))
             {
                 gameOver = true;
             }
