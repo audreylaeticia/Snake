@@ -57,7 +57,7 @@ Game::Game()
     }
 
     eatSound.setBuffer(eatBuffer);
-    eatSound.setVolume(70);
+    eatSound.setVolume(400);
 
     if (!gameMusic.openFromFile("ressources/son.wav"))
     {
@@ -65,7 +65,7 @@ Game::Game()
     }
 
     gameMusic.setLoop(true);
-    gameMusic.setVolume(15); 
+    gameMusic.setVolume(10); 
     gameMusic.play();
 }
 
@@ -200,11 +200,12 @@ void Game::run(sf::RenderWindow& window)
             if (speed < minSpeed)
                 speed = minSpeed;
 
+            eatSound.stop();
+            eatSound.play();
             snake.grow();
             food.incrementScore();
             food.spawn(snake.getBody());
-            eatSound.stop();
-            eatSound.play(); 
+            
         }
 
         window.clear();
