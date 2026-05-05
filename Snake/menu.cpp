@@ -81,10 +81,13 @@ void Menu::init()
 
     _infoDisplay.setString(
         "SNAKE - MODE D'EMPLOI\n\n"
-        "Le jeu Snake est un jeu classique ou vous controlez un serpent qui se déplace sur une grille.\n"
-        "Le but est de manger la nourriture pour faire grandir le serpent et augmenter votre score.\n\n"
+        "Le jeu Snake est un jeu classique ou vous controlez "
+        "un serpent qui se déplace sur une grille.\n"
+        "Le but est de manger la nourriture pour faire grandir"
+        "le serpent et augmenter votre score.\n\n"
         "COMMENT JOUER :\n"
-        "- Utilisez les fleches du clavier (↑ ↓ ← →) pour déplacer le serpent\n"
+        "- Utilisez les fleches du clavier (↑ ↓ ← →)"
+        "pour déplacer le serpent\n"
         "- Chaque nourriture manger augmente votre score\n"
         "- Le serpent grandit a chaque fois que vous mangez\n\n"
         "REGLES DU JEU :\n"
