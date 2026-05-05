@@ -7,7 +7,7 @@ using namespace sf;
 Game::Game()
 {
     //window.create(VideoMode(800, 700), "Snake");
-    window.setFramerateLimit(60);
+    //window.setFramerateLimit(60);
 
     hasStarted = false;
     gameOver = false;
@@ -48,7 +48,7 @@ Game::Game()
     }
 
     keySound.setBuffer(keyBuffer);
-    keySound.setVolume(30);
+    keySound.setVolume(60);
 
 
     if (!eatBuffer.loadFromFile("ressources/music_food.wav"))
@@ -57,7 +57,7 @@ Game::Game()
     }
 
     eatSound.setBuffer(eatBuffer);
-    eatSound.setVolume(40);
+    eatSound.setVolume(70);
 
     if (!gameMusic.openFromFile("ressources/son.wav"))
     {
@@ -65,7 +65,7 @@ Game::Game()
     }
 
     gameMusic.setLoop(true);
-    gameMusic.setVolume(30); 
+    gameMusic.setVolume(15); 
 }
 
 void Game::resetGame()

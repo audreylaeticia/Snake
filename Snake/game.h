@@ -16,7 +16,7 @@ public:
 	bool paused = false;
 
 private:
-	sf::RenderWindow window;
+	//sf::RenderWindow window;
 	sf::Texture _textureFond;
 	sf::Sprite _spriteFond;
 	sf::RectangleShape _fond;
