@@ -14,6 +14,7 @@ public:
 	void resetGame();
 	void startMusic();
 	bool paused = false;
+	void runApp(sf::RenderWindow& window);
 
 private:
 	sf::RenderWindow window;
