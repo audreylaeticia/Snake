@@ -131,7 +131,10 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
                             return 2;
 
                         else if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                        {
+                            menuMusic.stop(); 
                             return 1;
+                        }
 
                         else if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
                             return 0;
@@ -173,4 +176,9 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
     }
 
     return 0;
+}
+
+void Menu::stopMusic()
+{
+    menuMusic.stop();
 }
