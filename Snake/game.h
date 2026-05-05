@@ -27,6 +27,7 @@ private:
 
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
+	sf::Text textPause;
 	
 
 	sf::RectangleShape overlay;

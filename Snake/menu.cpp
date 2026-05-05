@@ -32,7 +32,7 @@ void Menu::init()
     }
 
     menuMusic.setLoop(true);
-    menuMusic.play();
+    menuMusic.setVolume(40);
 
     // bouton play
     _playButton.setSize(sf::Vector2f(200, 50));
@@ -96,13 +96,17 @@ void Menu::init()
         "- Vous pouvez reprendre depuis le menu\n\n"
         "OBJECTIF :\n"
         "Obtenez le meilleur score possible et battez votre record !"
+
     );
 }
-
 int Menu::run(sf::RenderWindow& window, bool showResume)
 {
     while (window.isOpen())
     {
+        if(menuMusic.getStatus() != sf::Music::Playing)
+        {
+            menuMusic.play(); // 🔥 joue seulement si pas déjà en cours
+        }
         sf::Event event;
 
         // EVENTS UNIQUEMENT
@@ -131,7 +135,10 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
                             return 2;
 
                         else if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                        {
+                            menuMusic.stop(); 
                             return 1;
+                        }
 
                         else if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
                             return 0;
@@ -173,4 +180,9 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
     }
 
     return 0;
+}
+
+void Menu::stopMusic()
+{
+    menuMusic.stop();
 }
