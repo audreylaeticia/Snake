@@ -161,6 +161,10 @@ void Game::run(sf::RenderWindow& window)
                     keySound.play();
                     hasStarted = true; 
                 }
+                if (event.key.code == sf::Keyboard::P)
+                {
+                    paused = !paused; // pause
+                }
             }
 
             if (gameOver && event.type == Event::MouseButtonPressed)
@@ -174,7 +178,7 @@ void Game::run(sf::RenderWindow& window)
             }
         }
 
-        if (!gameOver && hasStarted && clock.getElapsedTime().asSeconds() > speed)
+        if (!paused && !gameOver && hasStarted && clock.getElapsedTime().asSeconds() > speed)
         {
             if (snake.willHitWall(25, 15))
             {
@@ -207,6 +211,8 @@ void Game::run(sf::RenderWindow& window)
             eatSound.play(); 
         }
 
+        
+
         window.clear();
 
         window.draw(uiBar);
@@ -226,6 +232,11 @@ void Game::run(sf::RenderWindow& window)
             window.draw(textFinalScore);
             window.draw(replayButton);
             window.draw(textReplay);
+        }
+
+        if (paused)
+        {
+            window.draw(textPause);
         }
 
         window.display();
@@ -261,4 +272,10 @@ void Game::initGameOverUI()
     textReplay.setCharacterSize(20);
     textReplay.setFillColor(sf::Color::White);
     textReplay.setPosition(350, 360);
+
+    textPause.setFont(_font);
+    textPause.setString("PAUSE");
+    textPause.setCharacterSize(40);
+    textPause.setFillColor(sf::Color::White);
+    textPause.setPosition(320, 250);
 }

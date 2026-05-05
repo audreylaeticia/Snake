@@ -96,9 +96,9 @@ void Menu::init()
         "- Vous pouvez reprendre depuis le menu\n\n"
         "OBJECTIF :\n"
         "Obtenez le meilleur score possible et battez votre record !"
+
     );
 }
-
 int Menu::run(sf::RenderWindow& window, bool showResume)
 {
     while (window.isOpen())
