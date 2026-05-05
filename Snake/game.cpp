@@ -66,6 +66,7 @@ Game::Game()
 
     gameMusic.setLoop(true);
     gameMusic.setVolume(15); 
+    gameMusic.play();
 }
 
 void Game::resetGame()
@@ -138,6 +139,7 @@ void Game::run(sf::RenderWindow& window)
                 if (event.key.code == sf::Keyboard::Up)
                 {
                     snake.setDirection({ 0, -1 });
+                    keySound.stop();
                     keySound.play();
                     hasStarted = true; 
                 }
@@ -145,6 +147,7 @@ void Game::run(sf::RenderWindow& window)
                 if (event.key.code == sf::Keyboard::Down)
                 {
                     snake.setDirection({ 0, 1 });
+                    keySound.stop();
                     keySound.play();
                     hasStarted = true; 
                 }
@@ -152,6 +155,7 @@ void Game::run(sf::RenderWindow& window)
                 if (event.key.code == sf::Keyboard::Left)
                 {
                     snake.setDirection({ -1, 0 });
+                    keySound.stop();
                     keySound.play();
                     hasStarted = true; 
                 }
@@ -159,6 +163,7 @@ void Game::run(sf::RenderWindow& window)
                 if (event.key.code == sf::Keyboard::Right)
                 {
                     snake.setDirection({ 1, 0 });
+                    keySound.stop();
                     keySound.play();
                     hasStarted = true; 
                 }
@@ -204,6 +209,7 @@ void Game::run(sf::RenderWindow& window)
             snake.grow();
             food.incrementScore();
             food.spawn(snake.getBody());
+            eatSound.stop();
             eatSound.play(); 
         }
 
