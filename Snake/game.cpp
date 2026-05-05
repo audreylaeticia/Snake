@@ -6,9 +6,6 @@ using namespace sf;
 
 Game::Game()
 {
-    //window.create(VideoMode(800, 700), "Snake");
-    //window.setFramerateLimit(60);
-
     hasStarted = false;
     gameOver = false;
     speed = 0.2f;
@@ -50,7 +47,6 @@ Game::Game()
     keySound.setBuffer(keyBuffer);
     keySound.setVolume(60);
 
-
     if (!eatBuffer.loadFromFile("ressources/music_food.wav"))
     {
         std::cout << "Erreur son pomme\n";
@@ -65,8 +61,7 @@ Game::Game()
     }
 
     gameMusic.setLoop(true);
-    gameMusic.setVolume(10); 
-    gameMusic.play();
+    gameMusic.setVolume(10);
 }
 
 void Game::resetGame()
@@ -82,8 +77,10 @@ void Game::resetGame()
 
 void Game::startMusic()
 {
+    gameMusic.stop();
     gameMusic.play();
 }
+
 void Game::runApp(sf::RenderWindow& window)
 {
     Menu menu;
@@ -94,6 +91,9 @@ void Game::runApp(sf::RenderWindow& window)
 
         if (choix == 1) // PLAY
         {
+            menu.stopMusic();
+            startMusic();
+
             resetGame();
             paused = false;
             run(window);
@@ -127,7 +127,7 @@ void Game::run(sf::RenderWindow& window)
                 if (event.key.code == sf::Keyboard::Escape)
                 {
                     paused = true;
-                    return; // retour au menu
+                    return;
                 }
 
                 if (event.key.code == sf::Keyboard::Up)
@@ -135,7 +135,7 @@ void Game::run(sf::RenderWindow& window)
                     snake.setDirection({ 0, -1 });
                     keySound.stop();
                     keySound.play();
-                    hasStarted = true; 
+                    hasStarted = true;
                 }
 
                 if (event.key.code == sf::Keyboard::Down)
@@ -143,7 +143,7 @@ void Game::run(sf::RenderWindow& window)
                     snake.setDirection({ 0, 1 });
                     keySound.stop();
                     keySound.play();
-                    hasStarted = true; 
+                    hasStarted = true;
                 }
 
                 if (event.key.code == sf::Keyboard::Left)
@@ -151,7 +151,7 @@ void Game::run(sf::RenderWindow& window)
                     snake.setDirection({ -1, 0 });
                     keySound.stop();
                     keySound.play();
-                    hasStarted = true; 
+                    hasStarted = true;
                 }
 
                 if (event.key.code == sf::Keyboard::Right)
@@ -159,11 +159,12 @@ void Game::run(sf::RenderWindow& window)
                     snake.setDirection({ 1, 0 });
                     keySound.stop();
                     keySound.play();
-                    hasStarted = true; 
+                    hasStarted = true;
                 }
+
                 if (event.key.code == sf::Keyboard::P)
                 {
-                    paused = !paused; // pause
+                    paused = !paused;
                 }
             }
 
@@ -206,13 +207,11 @@ void Game::run(sf::RenderWindow& window)
 
             eatSound.stop();
             eatSound.play();
+
             snake.grow();
             food.incrementScore();
             food.spawn(snake.getBody());
-            
         }
-
-        
 
         window.clear();
 
@@ -280,3 +279,4 @@ void Game::initGameOverUI()
     textPause.setFillColor(sf::Color::White);
     textPause.setPosition(320, 250);
 }
+
