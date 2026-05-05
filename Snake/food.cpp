@@ -14,7 +14,12 @@ Food::Food()
     _record = 0;
 
     // initialiser le random
-    srand(time(NULL));
+    static bool seeded = false;
+    if (!seeded)
+    {
+        srand(time(NULL));
+        seeded = true;
+    }
 
     //  charger texture pomme
     if (!_texturePomme.loadFromFile("ressources/pomme.png"))
@@ -43,7 +48,7 @@ void Food::spawn(const std::vector<sf::Vector2i>& snakeBody)
     while (!valid)
     {
         _position.x = rand() % 25;
-        _position.y = rand() % 18;
+        _position.y = rand() % 15;
 
         valid = true;
 
