@@ -64,6 +64,15 @@ void Menu::init()
     _infoText.setCharacterSize(24);
     _infoText.setPosition(350, 410);
 
+    _resumeButton.setSize(sf::Vector2f(200, 50));
+    _resumeButton.setPosition(300, 150);
+    _resumeButton.setFillColor(sf::Color::Green);
+
+    _resumeText.setFont(_font);
+    _resumeText.setString("Resume");
+    _resumeText.setCharacterSize(24);
+    _resumeText.setPosition(350, 160);
+
     // texte infos (mode d'emploi)
     _infoDisplay.setFont(_font);
     _infoDisplay.setCharacterSize(20);
@@ -90,68 +99,51 @@ void Menu::init()
     );
 }
 
-int Menu::run(sf::RenderWindow& window)
+int Menu::run(sf::RenderWindow& window, bool showResume)
 {
-    while (window.isOpen()) {
-
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
 
+        // 🔥 EVENTS UNIQUEMENT
+        while (window.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // clic souris
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
-
-                    // on bloque les clics si on est dans l'écran infos
-                    if (!_showInfo)
-                    {
-                        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                        
-                        if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                            menuMusic.stop();
-                            return 1;
-                        }
-                        else if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                            return 0;
-                        }
-                        else if (_infoButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                            _showInfo = true;
-                        }
-                    }
-                }
-            }
-
+            // 🔥 ESC pour quitter infos
             if (event.type == sf::Event::KeyPressed &&
                 event.key.code == sf::Keyboard::Escape)
             {
-                _showInfo = false;
+                if (_showInfo)
+                    _showInfo = false;
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    if (!_showInfo)
+                    {
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+                        if (showResume && _resumeButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                            return 2;
+
+                        else if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                            return 1;
+
+                        else if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                            return 0;
+
+                        else if (_infoButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
+                            _showInfo = true;
+                    }
+                }
             }
         }
 
-        // position souris
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
-        // hover play
-        if (_playButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
-            _playButton.setFillColor(sf::Color::Green);
-        else
-            _playButton.setFillColor(sf::Color::Blue);
-
-        // hover quit
-        if (_quitButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
-            _quitButton.setFillColor(sf::Color::Red);
-        else
-            _quitButton.setFillColor(sf::Color::Blue);
-
-        //hover infos
-        if (_infoButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
-            _infoButton.setFillColor(sf::Color::Yellow);
-        else
-            _infoButton.setFillColor(sf::Color::Blue);
-
-        // affichage
+        // 🔥 AFFICHAGE (EN DEHORS)
         window.clear();
         window.draw(_backgroundSprite);
 
@@ -161,6 +153,12 @@ int Menu::run(sf::RenderWindow& window)
         }
         else
         {
+            if (showResume)
+            {
+                window.draw(_resumeButton);
+                window.draw(_resumeText);
+            }
+
             window.draw(_playButton);
             window.draw(_playText);
 

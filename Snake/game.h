@@ -9,10 +9,11 @@ class Game
 {
 public:
 	Game();
-	void run();
+	void run(sf::RenderWindow& window);
 	void initGameOverUI();
 	void resetGame();
 	void startMusic();
+	bool paused = false;
 
 private:
 	sf::RenderWindow window;

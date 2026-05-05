@@ -6,7 +6,7 @@ using namespace sf;
 
 Game::Game()
 {
-    window.create(VideoMode(800, 700), "Snake");
+    //window.create(VideoMode(800, 700), "Snake");
     window.setFramerateLimit(60);
 
     hasStarted = false;
@@ -84,7 +84,7 @@ void Game::startMusic()
     gameMusic.play();
 }
 
-void Game::run()
+void Game::run(sf::RenderWindow& window)
 {
     while (window.isOpen())
     {
@@ -97,6 +97,12 @@ void Game::run()
 
             if (event.type == sf::Event::KeyPressed)
             {
+                if (event.key.code == sf::Keyboard::Escape)
+                {
+                    paused = true;
+                    return; // retour au menu
+                }
+
                 if (event.key.code == sf::Keyboard::Up)
                 {
                     snake.setDirection({ 0, -1 });

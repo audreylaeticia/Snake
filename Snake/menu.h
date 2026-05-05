@@ -19,6 +19,9 @@ private:
     sf::Text _infoDisplay;
     bool _showInfo = false;
 
+    sf::RectangleShape _resumeButton;
+    sf::Text _resumeText;
+
     sf::Texture _backgroundTexture;
 
     sf::Texture _textureFond;
@@ -31,7 +34,7 @@ public:
     Menu();
 
     void init(); // initialise les boutons
-   int run(sf::RenderWindow& window); // lance le menu
+   int run(sf::RenderWindow& window, bool showResume); // lance le menu
 
     
 };
