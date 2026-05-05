@@ -32,7 +32,7 @@ void Menu::init()
     }
 
     menuMusic.setLoop(true);
-    menuMusic.play();
+    
 
     // bouton play
     _playButton.setSize(sf::Vector2f(200, 50));
@@ -103,6 +103,10 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
 {
     while (window.isOpen())
     {
+        if(menuMusic.getStatus() != sf::Music::Playing)
+        {
+            menuMusic.play(); // 🔥 joue seulement si pas déjà en cours
+        }
         sf::Event event;
 
         // EVENTS UNIQUEMENT
