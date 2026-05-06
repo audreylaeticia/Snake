@@ -48,6 +48,8 @@ private:
 	sf::SoundBuffer eatBuffer;
 	sf::Sound eatSound;
 	sf::Music gameMusic;
+	sf::SoundBuffer gameOverBuffer;
+	sf::Sound gameOverSound;
 
 	bool hasStarted;
 	bool gameOver;

@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace sf;
+using namespace std;
 
 Game::Game()
 {
@@ -14,7 +15,7 @@ Game::Game()
 
     if (!_font.loadFromFile("ressources/arial.ttf"))
     {
-        std::cout << "Erreur chargement police\n";
+        cout << "Erreur chargement police\n";
     }
 
     initGameOverUI();
@@ -25,7 +26,7 @@ Game::Game()
 
     if (!_textureFond.loadFromFile("ressources/imageFond.png"))
     {
-        std::cout << "Erreur chargement fond\n";
+        cout << "Erreur chargement fond\n";
     }
 
     _spriteFond.setTexture(_textureFond);
@@ -57,11 +58,19 @@ Game::Game()
 
     if (!gameMusic.openFromFile("ressources/son.wav"))
     {
-        std::cout << "Erreur musique jeu\n";
+        cout << "Erreur musique jeu\n";
     }
 
     gameMusic.setLoop(true);
     gameMusic.setVolume(10);
+
+    if (!gameOverBuffer.loadFromFile("ressources/music_gameover.wav"))
+    {
+        cout << "Erreur son game over"<<endl;
+    }
+
+    gameOverSound.setBuffer(gameOverBuffer);
+    gameOverSound.setVolume(100);
 }
 
 void Game::resetGame()
@@ -193,7 +202,10 @@ void Game::run(sf::RenderWindow& window)
             if (snake.willHitWall(25, 15))
             {
                 gameOver = true;
+                gameMusic.stop();
+                gameOverSound.play();
             }
+
             else
             {
                 snake.move();
@@ -201,6 +213,8 @@ void Game::run(sf::RenderWindow& window)
                 if (snake.checkSelfCollision())
                 {
                     gameOver = true;
+                    gameMusic.stop();
+                    gameOverSound.play();
                 }
             }
 
