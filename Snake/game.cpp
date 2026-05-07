@@ -82,6 +82,8 @@ void Game::resetGame()
     food.spawn(snake.getBody());
     food.resetScore();
     clock.restart();
+    gameMusic.stop();   
+    gameMusic.play();
 }
 
 void Game::startMusic()
