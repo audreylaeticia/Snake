@@ -26,6 +26,19 @@ void Menu::init()
         600.0f / _backgroundTexture.getSize().y
     );
 
+    // BACKGROUND POUR INFOS
+    if (!_infoBgTexture.loadFromFile("ressources/fond.png"))
+    {
+        std::cout << "Erreur fond infos\n";
+    }
+
+    _infoBgSprite.setTexture(_infoBgTexture);
+
+    _infoBgSprite.setScale(
+        800.0f / _infoBgTexture.getSize().x,
+        600.0f / _infoBgTexture.getSize().y
+    );
+
     if (!menuMusic.openFromFile("ressources/music_music.wav"))
     {
         std::cout << "Erreur musique\n";
@@ -78,6 +91,11 @@ void Menu::init()
     _infoDisplay.setCharacterSize(20);
     _infoDisplay.setFillColor(sf::Color::White);
     _infoDisplay.setPosition(50, 100);
+
+    ////PANEL TRANSPARENT POUR TEXTE
+    //_infoPanel.setSize(sf::Vector2f(700, 450));
+    //_infoPanel.setPosition(50, 80);
+    //_infoPanel.setFillColor(sf::Color(0, 0, 0, 180));
 
     _infoDisplay.setString(
         "SNAKE - MODE D'EMPLOI\n\n"
