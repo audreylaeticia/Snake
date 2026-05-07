@@ -19,7 +19,7 @@ void Snake::setDirection(const sf::Vector2i& newdirection)
 
     _direction = newdirection;
 }
-sf::Vector2i Snake::getHeadPosition() const
+Vector2i Snake::getHeadPosition() const
 {
     return _body.front(); // tête du serpent
 }
@@ -30,7 +30,7 @@ const std::vector<sf::Vector2i>& Snake::getBody() const
 }
 void Snake::move()
 {
-    sf::Vector2i newHead = _body.front() + _direction;
+    Vector2i newHead = _body.front() + _direction;
 
 
     _body.insert(_body.begin(), newHead);
@@ -107,7 +107,7 @@ void Snake::initialise()
 
 bool Snake::checkCollisionWithWall(int width, int height)
 {
-    sf::Vector2i head = _body.front();
+    Vector2i head = _body.front();
 
     if (head.x < 0 || head.x >= width ||
         head.y < 0 || head.y >= height)
@@ -120,7 +120,7 @@ bool Snake::checkCollisionWithWall(int width, int height)
 
 bool Snake::willHitWall(int width, int height) const
 {
-    sf::Vector2i next = _body.front() + _direction;
+    Vector2i next = _body.front() + _direction;
 
     if (next.x < 0 || next.x >= width ||
         next.y < 0 || next.y >= height)
@@ -133,7 +133,7 @@ bool Snake::willHitWall(int width, int height) const
 
 bool Snake::checkSelfCollision() const
 {
-    sf::Vector2i head = _body.front();
+    Vector2i head = _body.front();
 
     for (int i = 1; i < _body.size(); i++)
     {
