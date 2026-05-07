@@ -62,7 +62,7 @@ Game::Game()
     }
 
     gameMusic.setLoop(true);
-    gameMusic.setVolume(10);
+    gameMusic.setVolume(40);
 
     if (!gameOverBuffer.loadFromFile("ressources/music_gameover.wav"))
     {

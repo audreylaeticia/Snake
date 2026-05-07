@@ -104,7 +104,7 @@ void Menu::init()
         "Le but est de manger la nourriture pour faire grandir le serpent et\n"
         " augmenter votre score.\n\n"
         "COMMENT JOUER :\n"
-        "- Utilisez les fleches du clavier (HAUT BAS GAUCHE DROITE)"
+        "- Utilisez les fleches du clavier (HAUT BAS GAUCHE DROITE)\n"
         "pour déplacer le serpent\n"
         "- Chaque nourriture manger augmente votre score\n"
         "- Le serpent grandit a chaque fois que vous mangez\n\n"
