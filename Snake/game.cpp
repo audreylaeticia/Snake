@@ -78,6 +78,7 @@ void Game::resetGame()
     gameOver = false;
     hasStarted = false;
 
+    speed = 0.2f;
     snake.initialise();
     food.spawn(snake.getBody());
     food.resetScore();
