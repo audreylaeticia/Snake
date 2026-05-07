@@ -20,6 +20,7 @@ private:
     bool _showInfo = false;
     sf::Texture _infoBgTexture;
     sf::Sprite _infoBgSprite;
+    sf::RectangleShape _infoPanel;
 
     sf::RectangleShape _resumeButton;
     sf::Text _resumeText;

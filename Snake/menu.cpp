@@ -90,19 +90,19 @@ void Menu::init()
     _infoDisplay.setFont(_font);
     _infoDisplay.setCharacterSize(20);
     _infoDisplay.setFillColor(sf::Color::White);
-    _infoDisplay.setPosition(50, 100);
+    _infoDisplay.setPosition(40, 30);
 
-    ////PANEL TRANSPARENT POUR TEXTE
-    //_infoPanel.setSize(sf::Vector2f(700, 450));
-    //_infoPanel.setPosition(50, 80);
-    //_infoPanel.setFillColor(sf::Color(0, 0, 0, 180));
+    //PANEL TRANSPARENT POUR TEXTE
+    _infoPanel.setSize(sf::Vector2f(760, 580));
+    _infoPanel.setPosition(20, 10);
+    _infoPanel.setFillColor(sf::Color(0, 0, 0, 180));
 
     _infoDisplay.setString(
         "SNAKE - MODE D'EMPLOI\n\n"
-        "Le jeu Snake est un jeu classique ou vous controlez "
-        "un serpent qui se déplace sur une grille.\n"
-        "Le but est de manger la nourriture pour faire grandir"
-        "le serpent et augmenter votre score.\n\n"
+        "Le jeu Snake est un jeu classique ou vous controlez un serpent qui \n"
+        "se déplace sur une grille.\n\n"
+        "Le but est de manger la nourriture pour faire grandir le serpent et\n"
+        " augmenter votre score.\n\n"
         "COMMENT JOUER :\n"
         "- Utilisez les fleches du clavier (↑ ↓ ← →)"
         "pour déplacer le serpent\n"
@@ -178,7 +178,7 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
         if (_showInfo)
         {
             window.draw(_infoBgSprite); // IMPORTANT
-            //window.draw(_infoPanel);
+            window.draw(_infoPanel);
             window.draw(_infoDisplay);
         }
         else
