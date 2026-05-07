@@ -18,6 +18,8 @@ private:
     sf::Text _infoText;
     sf::Text _infoDisplay;
     bool _showInfo = false;
+    sf::Texture _infoBgTexture;
+    sf::Sprite _infoBgSprite;
 
     sf::RectangleShape _resumeButton;
     sf::Text _resumeText;

@@ -177,6 +177,8 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
 
         if (_showInfo)
         {
+            window.draw(_infoBgSprite); // IMPORTANT
+            //window.draw(_infoPanel);
             window.draw(_infoDisplay);
         }
         else
