@@ -87,11 +87,6 @@ void Game::resetGame()
     gameMusic.play();
 }
 
-//void Game::startMusic()
-//{
-//    gameMusic.stop();
-//    gameMusic.play();
-//}
 void Game::startMusic()
 {
     if (gameMusic.getStatus() != sf::Music::Playing)
@@ -122,7 +117,7 @@ void Game::runApp(sf::RenderWindow& window)
         {
             menu.stopMusic();
 
-            //resetGame();
+           
 
             paused = false;
             startMusic();

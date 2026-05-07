@@ -26,7 +26,7 @@ void Menu::init()
         600.0f / _backgroundTexture.getSize().y
     );
 
-    // BACKGROUND POUR INFOS
+    // le background pour les infos du jeu
     if (!_infoBgTexture.loadFromFile("ressources/fond.png"))
     {
         std::cout << "Erreur fond infos\n";
@@ -47,7 +47,7 @@ void Menu::init()
     menuMusic.setLoop(true);
     menuMusic.setVolume(40);
 
-    // bouton play
+    // pour mon bouton play
     _playButton.setSize(sf::Vector2f(200, 50));
     _playButton.setPosition(300, 200);
     _playButton.setFillColor(sf::Color::Blue);
@@ -57,7 +57,7 @@ void Menu::init()
     _playText.setCharacterSize(24);
     _playText.setPosition(350, 210);
 
-    // bouton quitter
+    // pour mon bouton quitter
     _quitButton.setSize(sf::Vector2f(200, 50));
     _quitButton.setPosition(300, 300);
     _quitButton.setFillColor(sf::Color::Blue);
@@ -67,7 +67,7 @@ void Menu::init()
     _quitText.setCharacterSize(24);
     _quitText.setPosition(350, 310);
 
-    // bouton infos
+    // pour mon bouton infos
     _infoButton.setSize(sf::Vector2f(200, 50));
     _infoButton.setPosition(300, 400);
     _infoButton.setFillColor(sf::Color::Blue);
@@ -86,13 +86,13 @@ void Menu::init()
     _resumeText.setCharacterSize(24);
     _resumeText.setPosition(350, 160);
 
-    // texte infos (mode d'emploi)
+    // pour mon mode d'emploi
     _infoDisplay.setFont(_font);
     _infoDisplay.setCharacterSize(20);
     _infoDisplay.setFillColor(sf::Color::White);
     _infoDisplay.setPosition(40, 30);
 
-    //PANEL TRANSPARENT POUR TEXTE
+    //pour mon panel transparent
     _infoPanel.setSize(sf::Vector2f(760, 580));
     _infoPanel.setPosition(20, 10);
     _infoPanel.setFillColor(sf::Color(0, 0, 0, 180));
@@ -126,17 +126,17 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
     {
         if(menuMusic.getStatus() != sf::Music::Playing)
         {
-            menuMusic.play(); // 🔥 joue seulement si pas déjà en cours
+            menuMusic.play(); 
         }
         sf::Event event;
 
-        // EVENTS UNIQUEMENT
+        
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // ESC pour quitter infos
+            // pour quitter le bouton infos
             if (event.type == sf::Event::KeyPressed &&
                 event.key.code == sf::Keyboard::Escape)
             {
@@ -171,13 +171,13 @@ int Menu::run(sf::RenderWindow& window, bool showResume)
             }
         }
 
-        // AFFICHAGE (EN DEHORS)
+        
         window.clear();
         window.draw(_backgroundSprite);
 
         if (_showInfo)
         {
-            window.draw(_infoBgSprite); // IMPORTANT
+            window.draw(_infoBgSprite); 
             window.draw(_infoPanel);
             window.draw(_infoDisplay);
         }

@@ -13,7 +13,7 @@ Food::Food()
     _score = 0;
     _record = 0;
 
-    // initialiser le random
+    // pour initialiser le random
     static bool seeded = false;
     if (!seeded)
     {
@@ -21,7 +21,7 @@ Food::Food()
         seeded = true;
     }
 
-    //  charger texture pomme
+    //  pour charger texture pomme
     if (!_texturePomme.loadFromFile("ressources/pomme.png"))
     {
         cout << "Erreur chargement pomme\n";
@@ -40,7 +40,7 @@ Food::Food()
     loadRecord();
 }
 
-//  positionner la pomme
+//  pour positionner ma pomme
 void Food::spawn(const std::vector<sf::Vector2i>& snakeBody)
 {
     bool valid = false;
@@ -62,14 +62,14 @@ void Food::spawn(const std::vector<sf::Vector2i>& snakeBody)
         }
     }
 
-    // +100 pour descendre sous la UI
+   
     _spritePomme.setPosition(
         _position.x * _cellSize,
         _position.y * _cellSize + 100
     );
 }
 
-//  augmenter score
+//  pour augmenter mon score
 void Food::incrementScore()
 {
     _score++;
@@ -81,7 +81,7 @@ void Food::incrementScore()
     }
 }
 
-//  affichage
+//  pour mon affichage de mon score et record
 void Food::draw(sf::RenderWindow& window)
 {
     window.draw(_spritePomme);
@@ -93,13 +93,13 @@ void Food::draw(sf::RenderWindow& window)
     window.draw(_textRecord);
 }
 
-//  position logique
+
 sf::Vector2i Food::getPosition() const
 {
     return _position;
 }
 
-//  sauvegarde record
+//  pour sauvegarder mon record dans son fichier
 void Food::saveRecord()
 {
     ofstream file("record.txt");
@@ -109,7 +109,7 @@ void Food::saveRecord()
     }
 }
 
-//chargement record
+
 void Food::loadRecord()
 {
     ifstream file("record.txt");
@@ -123,7 +123,7 @@ void Food::loadRecord()
     }
 }
 
-//  initialisation texte UI
+
 void Food::initialiserTexte()
 {
     if (!_font.loadFromFile("ressources/arial.ttf"))
@@ -134,7 +134,7 @@ void Food::initialiserTexte()
     _textScore.setFont(_font);
     _textScore.setCharacterSize(22);
     _textScore.setFillColor(sf::Color::White);
-    _textScore.setPosition(20, 20); //dans la barre UI
+    _textScore.setPosition(20, 20);
 
     _textRecord.setFont(_font);
     _textRecord.setCharacterSize(22);

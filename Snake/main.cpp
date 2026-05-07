@@ -6,10 +6,10 @@
 int main()
 {
    sf::RenderWindow window(sf::VideoMode(800, 600), "Snake");
-    window.setFramerateLimit(60); // frame
+    window.setFramerateLimit(60); 
 
     Menu menu;
-    Game game; //  UNE SEULE FOIS
+    Game game; 
     game.runApp(window);
   
     return 0;

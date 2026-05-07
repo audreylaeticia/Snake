@@ -37,8 +37,8 @@ private:
 public:
     Menu();
 
-    void init(); // initialise les boutons
-   int run(sf::RenderWindow& window, bool showResume); // lance le menu
+    void init();
+   int run(sf::RenderWindow& window, bool showResume); 
    void stopMusic();
 
     
