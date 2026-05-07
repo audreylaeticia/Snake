@@ -86,10 +86,17 @@ void Game::resetGame()
     gameMusic.play();
 }
 
+//void Game::startMusic()
+//{
+//    gameMusic.stop();
+//    gameMusic.play();
+//}
 void Game::startMusic()
 {
-    gameMusic.stop();
-    gameMusic.play();
+    if (gameMusic.getStatus() != sf::Music::Playing)
+    {
+        gameMusic.play();
+    }
 }
 
 void Game::runApp(sf::RenderWindow& window)
@@ -107,11 +114,17 @@ void Game::runApp(sf::RenderWindow& window)
 
             resetGame();
             paused = false;
+            startMusic();
             run(window);
         }
         else if (choix == 2) // REPRENDRE
         {
+            menu.stopMusic();
+
+            //resetGame();
+
             paused = false;
+            startMusic();
             run(window);
         }
         else
@@ -138,6 +151,7 @@ void Game::run(sf::RenderWindow& window)
                 if (event.key.code == sf::Keyboard::Escape)
                 {
                     paused = true;
+                    gameMusic.pause();
                     return;
                 }
 
