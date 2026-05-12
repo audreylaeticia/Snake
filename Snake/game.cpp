@@ -83,8 +83,7 @@ void Game::resetGame()
     food.spawn(snake.getBody());
     food.resetScore();
     clock.restart();
-    gameMusic.stop();   
-    gameMusic.play();
+    
 }
 
 void Game::startMusic()
@@ -196,6 +195,7 @@ void Game::run(sf::RenderWindow& window)
                 if (returnButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
                 {
                     
+                    gameMusic.stop();
                     resetGame();
                     paused = false;
                     return;
