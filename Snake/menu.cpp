@@ -90,7 +90,7 @@ void Menu::init()
     _infoDisplay.setFont(_font);
     _infoDisplay.setCharacterSize(20);
     _infoDisplay.setFillColor(sf::Color::White);
-    _infoDisplay.setPosition(40, 30);
+    _infoDisplay.setPosition(40,20);
 
     //pour mon panel transparent
     _infoPanel.setSize(sf::Vector2f(760, 580));

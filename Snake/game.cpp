@@ -103,7 +103,7 @@ void Game::runApp(sf::RenderWindow& window)
     {
         int choix = menu.run(window, paused);
 
-        if (choix == 1) // PLAY
+        if (choix == 1) //play
         {
             menu.stopMusic();
             startMusic();
@@ -113,7 +113,7 @@ void Game::runApp(sf::RenderWindow& window)
             startMusic();
             run(window);
         }
-        else if (choix == 2) // REPRENDRE
+        else if (choix == 2) // reprendre
         {
             menu.stopMusic();
 

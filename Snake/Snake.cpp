@@ -15,7 +15,7 @@ Snake::Snake()
 void Snake::setDirection(const sf::Vector2i& newdirection)
 {
     if (newdirection.x == -_direction.x && newdirection.y == -_direction.y)
-        return; // empeche de faire un demi-tour
+        return; 
 
     _direction = newdirection;
 }
@@ -65,7 +65,7 @@ void Snake::draw(sf::RenderWindow& window)
 
         sprite.setPosition(
             _body[i].x * 32,
-            _body[i].y * 32 + 100 // décalage vertical
+            _body[i].y * 32 + 100 
         );
 
         window.draw(sprite);
@@ -75,30 +75,30 @@ void Snake::draw(sf::RenderWindow& window)
 void Snake::initialise()
 {
 
-    // corps initial
+  
     _body.clear();
     _body.push_back({ 5, 5 });
     _body.push_back({ 4, 5 });
     _body.push_back({ 3, 5 });
 
-    // direction
+  
     _direction = { 1, 0 };
 
-    // croissance
+    
     _grandit = false;
 
 
     if (!_textureTete.loadFromFile("ressources/serpentTete.png")) {
-        cout << "érreur chargement serpentTete.png";
+        cout << "Érreur chargement serpentTete.png";
     }
     if (!_textureCorps.loadFromFile("ressources/serpentCorps.png")) {
-        cout << "érreur chargement serpentCorps.png";
+        cout << "Érreur chargement serpentCorps.png";
     }
     if (!_textureQueue.loadFromFile("ressources/serpentQueue.png")) {
-        cout << "érreur chargement serpentQueue.png";
+        cout << "Érreur chargement serpentQueue.png";
     }
 
-    //associer les sprites 
+   
     _spriteTete.setTexture(_textureTete);
     _spriteCorps.setTexture(_textureCorps);
     _spriteQueue.setTexture(_textureQueue);
@@ -112,7 +112,7 @@ bool Snake::checkCollisionWithWall(int width, int height)
     if (head.x < 0 || head.x >= width ||
         head.y < 0 || head.y >= height)
     {
-        return true; // collision détectée
+        return true; 
     }
 
     return false;
@@ -139,7 +139,7 @@ bool Snake::checkSelfCollision() const
     {
         if (_body[i] == head)
         {
-            return true; // collision avec soi-même
+            return true; 
         }
     }
 

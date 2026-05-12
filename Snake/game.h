@@ -17,7 +17,7 @@ public:
 	void runApp(sf::RenderWindow& window);
 
 private:
-	//sf::RenderWindow window;
+	
 	sf::Texture _textureFond;
 	sf::Sprite _spriteFond;
 	sf::RectangleShape _fond;
